@@ -1,8 +1,8 @@
 'use strict';
 
-const EventEmitter = require('node:events')
+const EventEmitter = require('node:events')  // importamos la clase EventEmitter del modulo nativo de Node.js
 
-const emitter = new EventEmitter()
+const emitter = new EventEmitter()  // creamos una instancia de EventEmitter que usaremos para emitir y escuchar eventos
 
 emitter.on('llamada de telefono', (payload) => {
     if (payload.llamante === 'hermana') {
