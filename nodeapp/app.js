@@ -3,7 +3,13 @@ import express from 'express'
 import createError from 'http-errors'
 import logger from 'morgan'
 import * as homeController from './controllers/homeController.js'
+import connectMongoose from './lib/connectMongoose.js'
 
+// conectar con la base de datos
+await connectMongoose()  //top level await thanks to ES modules
+console.log('Connected to MongoDB')
+
+// conectar con lal ibreria express
 const app = express()
 
 // aqui decimos que las vistas las va a encontrar en la carpeta views y que los tiene que cargar con la extension ejs. Si fuesemos a usar html, se escribe html

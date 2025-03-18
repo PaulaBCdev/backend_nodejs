@@ -5,18 +5,21 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env PORT=3000 NODEAPP_ENV=development nodemon server.js",
-    "start": "cross-env NODEAPP_ENV=production node server.js"
+    "start": "cross-env NODEAPP_ENV=production node server.js",
+    "initDB": "node initDB.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cross-env": "^7.0.3",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
     "http-errors": "^2.0.0",
+    "mongoose": "^8.12.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
