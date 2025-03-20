@@ -4,7 +4,8 @@ import mongoose, { Schema } from 'mongoose'
 const agentSchema = new Schema({
     name: String,
     age: { type: Number, min: 18, max: 130 },
-    updated: { type: Date, default: Date.now }
+    updated: { type: Date, default: Date.now },
+    owner: { type: Schema.Types.ObjectId, ref: 'User', index: true }  // para que te salgan solo los agentes que has creado tu
 }, {
     collection: 'agentes'  // para forzar el nombre de la coleccion (en la base de datos se llama agentes, pero aqui lo llamamos Agent)
 })

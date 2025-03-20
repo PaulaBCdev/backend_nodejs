@@ -3,8 +3,9 @@ import Agent from '../models/Agent.js'
 
 export async function index(req, res, next) {
     try {
-        // res.locals.appName = 'NodeAPP'
-        res.locals.agents = await Agent.find()  // para que este await funcione, hay que poner el async detras del export de la funcion
+        const userId = req.session.userId  // para que solo se te muestren los agentes que has hecho tu. Tambien hay que poner en la linea de abajo { owner: }
+
+        res.locals.agents = await Agent.find({ owner: userId })  // para que este await funcione, hay que poner el async detras del export de la funcion
     
         const now = new Date()
         res.locals.esPar = (now.getSeconds() % 2) === 0

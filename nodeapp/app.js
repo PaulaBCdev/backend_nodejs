@@ -2,8 +2,11 @@ import path from 'node:path'
 import express from 'express'
 import createError from 'http-errors'
 import logger from 'morgan'
-import * as homeController from './controllers/homeController.js'
 import connectMongoose from './lib/connectMongoose.js'
+import * as homeController from './controllers/homeController.js'
+import * as loginController from './controllers/loginController.js'
+import * as agentsController from './controllers/agentsController.js'
+import * as sessionManager from './lib/sessionManager.js'
 
 // conectar con la base de datos
 await connectMongoose()  //top level await thanks to ES modules
@@ -28,7 +31,17 @@ app.use(express.static(path.join(import.meta.dirname, 'public')))
 
 
 // aplication routes
+app.use(sessionManager.middleware)
+app.use(sessionManager.useSessionInViews)
 app.get('/', homeController.index)
+app.get('/login', loginController.index)
+app.post('/login', loginController.postLogin)
+app.get('/logout', loginController.logout)
+app.get('/agents/new', sessionManager.guard, agentsController.index)
+app.post('/agents/new', sessionManager.guard, agentsController.postNew)
+app.get('/agents/delete/:agentId', sessionManager.guard, agentsController.deleteAgent)
+
+// Ejemplos
 app.get('/param_in_route/:num?', homeController.paramInRoute)
 app.get('/param_in_route_multiple/:product/size/:size(XS|S|M|L|XL)/color/:color', homeController.paramInRouteMultiple)
 app.get('/param_in_query', homeController.validateparamInQuery, homeController.paramInQuery)
